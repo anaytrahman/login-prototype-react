@@ -13,18 +13,12 @@ function App() {
       <div className="App container">
         <Header />
 
-        {/* <Login />
-
-
-
-        <hr />
-        <Register /> */}
-
         <section>
           <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Dashboard} />
+            <Route path="/" component={Login} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/dashboard" component={Dashboard} />         
           </Switch>
         </section>
 

@@ -11,28 +11,11 @@ const Login = () => {
 
     const inputUsername = useRef(null);
     const inputPassword = useRef(null);
-    
-    // useEffect(() => {
-    //     fetch("../../store/proto/user.json", {
-    //         headers : { 
-    //           'Content-Type': 'application/json',
-    //           'Accept': 'application/json'
-    //          }
-    //       })
-    
-    //         //.then(res => res.json())
-    //         .then((data) => {
-    //             console.log(data);
-    //         })
-    //         .catch(err => {
-    //             console.log('My Error: ', err)
-    //         })
 
-    // }, [])
 
-    console.log('users ', users);
+    // console.log('users ', users);
 
-    console.log(' history ', history);
+    // console.log(' history ', history);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -43,15 +26,18 @@ const Login = () => {
         if(_username !=='' && _password !=='') {
 
             const activeUser = users.filter((item) => {
-                return item.login.username === _username //'sadkoala338'
+                return item.login.username === _username && item.login.password ===_password  //'sadkoala338' // shaved
             });
 
             console.log('activeUser ', activeUser);
 
-            if(activeUser && activeUser.length > 0) {
-                history.push('/dashboard')
+            if( activeUser.length > 0) {
+
+                localStorage.setItem('userLogin', activeUser[0].email);
+
+                history.push('/dashboard');
             } else {
-                alert(' User doesn exist');  
+                alert('Your credential are wrong');  
             }
 
         } else {

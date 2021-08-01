@@ -1,27 +1,62 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { users } from "../../store/proto/user";
+
+import "./dashboard.scss";
 
 const Dashboard = () => {
 
     const history = useHistory();
 
+    const [user, setUser] = useState(null);
+
+
+    useEffect(() => {
+
+        const activeUser = users.filter((item) => {
+            return item.email === localStorage.getItem("userLogin")
+        });
+
+        if (activeUser.length > 0) {
+            setUser(activeUser[0]);
+        }
+        console.log(' activeUser ', activeUser);
+
+    }, []);
+
     return (
         <>
-            <main className="main">
+            <main className="main dashboard-wrapper">
 
                 <div class="jumbotron">
-                    <h1 class="display-4">Hello, world!</h1>
+                    <h1 class="display-4">Hello, {user && user.email}!</h1>
                     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                    <hr class="my-4" />
-                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                    </p>
+
+                    
                 </div>
-                <div class="container">
-                    <h1>User: </h1>
-                </div>
+
+                {
+                    user &&
+                    <div class="container">
+                        <div className="row">
+                            <div class="col-md-12">
+                                <div class="card profile-card-2">
+                                    <div class="card-img-block">
+                                        <img class="img-fluid" src="https://images.pexels.com/photos/946351/pexels-photo-946351.jpeg?w=500&h=650&auto=compress&cs=tinysrgb" alt="Card image cap" />
+                                    </div>
+                                    <div class="card-body pt-5">
+                                        <img src={user.picture.thumbnail} alt="profile-image" class="profile" />
+                                        <h5 class="card-title">{user.name.first} {user.name.last}</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                                    </div>
+                                </div>
+                                <p class="mt-3 w-100 float-left text-center"><strong>Social Profile Card</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
             </main>
         </>
     );
