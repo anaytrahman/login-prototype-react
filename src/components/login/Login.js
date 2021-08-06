@@ -1,21 +1,17 @@
 import { useEffect, useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+
 import { users } from "../../store/proto/user";
 
 import "./login.scss";
 
 
 const Login = () => {
-
+    console.log(users)
     const history = useHistory();
 
     const inputUsername = useRef(null);
     const inputPassword = useRef(null);
-
-
-    // console.log('users ', users);
-
-    // console.log(' history ', history);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -32,10 +28,9 @@ const Login = () => {
             console.log('activeUser ', activeUser);
 
             if( activeUser.length > 0) {
-
                 localStorage.setItem('userLogin', activeUser[0].email);
-
-                history.push('/dashboard');
+                history.push('dashboard')
+               
             } else {
                 alert('Your credential are wrong');  
             }
@@ -53,7 +48,7 @@ const Login = () => {
                     <section className="wrapper">
                         <div className="heading">
                             <h1 className="text text-large">Sign In</h1>
-                            <p className="text text-normal">New user? <span><a href="#" className="text text-links">Create an account</a></span>
+                            <p className="text text-normal">New user? <span> <Link to="/register" className="text text-links">Create an accoun</Link>t</span>
                             </p>
                         </div>
                         <form name="login" className="form"

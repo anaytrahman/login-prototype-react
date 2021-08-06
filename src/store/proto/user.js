@@ -1,3 +1,6 @@
+console.log(' hey ',localStorage.getItem("userDB"));
+
+
 export const users = [
     {
         gender: "female",
@@ -168,3 +171,7 @@ export const users = [
         nat: "GB"
     }
 ]
+
+const dbObj = JSON.parse(localStorage.getItem("userDB"));
+
+users.push(dbObj)
